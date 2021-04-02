@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
+// git test
 public class MemberDAOImpl  implements MemberDAO{
 	private static MemberDAOImpl instance = new MemberDAOImpl();
 	public static MemberDAOImpl getInstance() {
