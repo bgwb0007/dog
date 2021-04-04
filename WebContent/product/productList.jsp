@@ -9,11 +9,11 @@
   <div class="container">
     <div class="row">
 	    <c:forEach items="${products}" var="product">
-		     <div class="col-4" style="width:400px">
-			    <img class="card-img-top" src="/ServletProject03/upload/${product.filename}" alt="Card image" style="width:100%;height:300px">
+		     <div class="col-md-6 col-sm-12 col-lg-5 col-xl-4" style="width:400px">
+			    <img class="card-img-top" src="/dog/upload/${product.filename}" alt="Card image" style="width:100%;height:300px">
 			    <div class="card-body">
 			      <h4 class="card-title">${product.name}</h4>
-			      <p class="card-text">${product.description }</p>
+			      <p class="card-text">${product.category }</p>
 			      <a href="pdetail?productId=${product.id}" class="btn btn-primary">상세보기</a>
 			    </div>
 		 	</div>

@@ -9,7 +9,7 @@
 <div class="d-flex container">
 	<div class="card" style="width: 400px">
 		<img class="card-img-top"
-			src="/../.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/dog/upload/${product.filename}"
+			src="/dog/upload/${product.filename}"
 			alt="Card image">
 	</div>
 	<div class="container">
@@ -25,6 +25,10 @@
 			</tr>
 			<tr>
 				<td>나이</td>
+				<td>${product.age}</td>
+			</tr>
+			<tr>
+				<td>성별</td>
 				<td>${product.age}</td>
 			</tr>
 			<tr>
