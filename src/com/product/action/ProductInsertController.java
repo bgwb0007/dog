@@ -1,6 +1,8 @@
 package com.product.action;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -69,9 +71,16 @@ public class ProductInsertController extends HttpServlet {
 		 product.setName(multi.getParameter("name"));
 		 product.setAge(Integer.parseInt(multi.getParameter("age")));
 		 product.setFilename(fileName);
+		 product.setGender(multi.getParameter("gender"));
 		 HttpSession session = request.getSession();
 		 Member user = (Member)session.getAttribute("user");
 		 product.setUserid(user.getUserid());
+		 
+		 SimpleDateFormat format1 = new SimpleDateFormat ( "YY-MM-dd HH:mm:ss");
+		 Date now = new Date();
+		 String format_time1 = format1.format(now.getTime());
+		 product.setCreatedDate(format_time1);
+		 
 		 pdao.productInsert(product);
 		 response.sendRedirect("plist");
 	}

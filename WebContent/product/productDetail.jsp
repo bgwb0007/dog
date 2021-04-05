@@ -8,13 +8,12 @@
 </div>
 <div class="d-flex container">
 	<div class="card" style="width: 400px">
-		<img class="card-img-top"
-			src="/dog/upload/${product.filename}"
+		<img class="card-img-top" src="/dog/upload/${product.filename}"
 			alt="Card image">
 	</div>
 	<div class="container">
 		<table class="table table-borderless">
-			
+
 			<tr>
 				<td width="200px">이름</td>
 				<td>${product.name}</td>
@@ -25,16 +24,13 @@
 			</tr>
 			<tr>
 				<td>나이</td>
-				<td>${product.age}</td>
+				<td>${product.age}개월</td>
 			</tr>
 			<tr>
 				<td>성별</td>
-				<td>${product.age}</td>
+				<td>${product.gender}</td>
 			</tr>
-			<tr>
-				<td>설명</td>
-				<td>${product.description}</td>
-			</tr>
+
 			<tr>
 				<td colspan="2">
 					<button class="btn btn-primary">분양받기</button>
@@ -43,6 +39,10 @@
 			</tr>
 		</table>
 	</div>
+</div>
+
+<div class="d-flex container">
+	<pre>${product.description}</pre>
 </div>
 
 <%@ include file="../include/footer.jsp"%>

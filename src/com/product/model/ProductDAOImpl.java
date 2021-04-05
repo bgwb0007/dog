@@ -34,8 +34,8 @@ public class ProductDAOImpl implements ProductDAO {
 			con = getConnection();
 			StringBuilder sb = new StringBuilder();
 			sb.append("insert into product ");
-			sb.append("(id, name, age, description, category, status, filename, userid )");
-			sb.append(" values(product_seq.nextval, ?,?,?,?,?,?,?)");
+			sb.append("(id, name, age, description, category, status, filename, userid, gender, createddate )");
+			sb.append(" values(product_seq.nextval, ?,?,?,?,?,?,?,?,?)");
 			ps = con.prepareStatement(sb.toString());
 			ps.setString(1, product.getName());
 			ps.setLong(2, product.getAge());
@@ -44,6 +44,8 @@ public class ProductDAOImpl implements ProductDAO {
 			ps.setString(5, product.getStatus());
 			ps.setString(6, product.getFilename());
 			ps.setString(7, product.getUserid());
+			ps.setString(8, product.getGender());
+			ps.setString(9, product.getCreatedDate());
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -73,12 +75,20 @@ public class ProductDAOImpl implements ProductDAO {
 				product.setId(rs.getInt("id"));
 				product.setStatus(rs.getString("status"));
 				product.setAge(rs.getInt("age"));
-				product.setFilename(rs.getString("filename"));
+				
+				if (rs.getString("filename")==null) {
+					product.setFilename("±âº».png");
+				}else {
+					product.setFilename(rs.getString("filename"));
+				}
+				product.setGender(rs.getString("gender"));
 				parr.add(product);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}finally {
+				closeConnection(con, null, st, rs);
+			}
 		return parr;
 	}
 
@@ -103,12 +113,45 @@ public class ProductDAOImpl implements ProductDAO {
 				product.setStatus(rs.getString("status"));
 				product.setAge(rs.getInt("age"));
 				product.setFilename(rs.getString("filename"));
+				product.setGender(rs.getString("gender"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeConnection(con, null, st, rs);
+		}
+		return product;
+	}
+	@Override
+	public ArrayList<Product> myProductFindAll(Long userId) {
+		Connection con = null;
+		Statement st = null;
+		ResultSet rs = null;
+		ArrayList<Product> productList = null;
+		try {
+			con = getConnection();
+			String sql = "select * from product where id=" + userId;
+			st = con.createStatement();
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				Product product = new Product();
+				product.setCategory(rs.getString("category"));
+				product.setDescription(rs.getString("description"));
+				product.setName(rs.getString("name"));
+				product.setId(rs.getInt("id"));
+				product.setStatus(rs.getString("status"));
+				product.setAge(rs.getInt("age"));
+				product.setFilename(rs.getString("filename"));
+				product.setGender(rs.getString("gender"));
+				productList.add(product);
 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			closeConnection(con, null, st, rs);
 		}
-		return product;
+		return productList;
 	}
 
 	private void closeConnection(Connection con, PreparedStatement ps, Statement st, ResultSet rs) {
@@ -125,4 +168,26 @@ public class ProductDAOImpl implements ProductDAO {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void saleCompleted(Long productId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void productDelete(Long productId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void productUpdate(Product product) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
 }
