@@ -13,10 +13,13 @@
 	</div>
 	<div class="container">
 		<table class="table table-borderless">
-
+			<tr>
+				<td width="200px">등록인</td>
+				<td>${product.userid }</td>
+			</tr>
 			<tr>
 				<td width="200px">이름</td>
-				<td>${product.name}</td>
+				<td>${product.name }</td>
 			</tr>
 			<tr>
 				<td>견종</td>
@@ -32,17 +35,25 @@
 			</tr>
 
 			<tr>
-				<td colspan="2">
-					<button class="btn btn-primary">분양받기</button>
-					<button class="btn btn-info">구매하기</button>
-				</td>
+				<td colspan="2"><c:if
+						test="${sessionScope.user.userid==product.userid }">
+						<a href="#" class="btn btn-secondary my-2">수정</a>
+						<a href="#" class="btn btn-secondary my-2">삭제</a>
+						<a href="/dog/product/salecompleted?productId=${product.id }" class="btn btn-secondary my-2">분양 완료</a>
+					</c:if> <c:if test="${sessionScope.user.userid!=product.userid }">
+						<a href="#" class="btn btn-primary my-2">분양 신청</a>
+					</c:if></td>
 			</tr>
 		</table>
 	</div>
 </div>
 
-<div class="d-flex container">
+<div class="container">
 	<pre>${product.description}</pre>
+	<br> 
+	<img src="/dog/upload/${product.filename}" class="img-fluid"
+		alt="Responsive image">
+
 </div>
 
 <%@ include file="../include/footer.jsp"%>

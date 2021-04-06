@@ -1,4 +1,4 @@
-package com.member.action;
+package com.admin.action;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import com.member.model.Member;
 /**
  * Servlet implementation class MemberListControlller
  */
-@WebServlet("/member/memberlist")
+@WebServlet("/admin/memberlist")
 public class MemberListControlller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

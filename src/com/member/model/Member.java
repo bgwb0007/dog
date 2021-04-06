@@ -7,6 +7,7 @@ public class Member {
 	private String email;
 	private String phone;
 	private int admin;
+	private String createdDate;
 	
 	public String getName() {
 		return name;
@@ -44,7 +45,13 @@ public class Member {
 	public void setAdmin(int admin) {
 		this.admin = admin;
 	}
-	
+	public String getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
+	}
+
 	
 	
 	

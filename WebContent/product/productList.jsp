@@ -8,7 +8,7 @@
 			<h1>Album example</h1>
 			<p class="lead text-muted">text text 강아지 입양!</p>
 			<p>
-				<a href="#" class="btn btn-primary my-2">분양 등록하기</a> <a href="#"
+				<a href="/dog/product/pinsert" class="btn btn-primary my-2">분양 등록하기</a> <a href="#"
 					class="btn btn-secondary my-2">내 등록글 확인하기</a>
 			</p>
 		</div>
@@ -32,6 +32,7 @@
 							<a href="pdetail?productId=${product.id}" class="text-dark">
 								[${product.category }]${product.name} </a>
 						</h5>
+						<span>${product.createdDate }</span>
 						<span class="badge badge-primary">분양중</span>
 					</div>
 

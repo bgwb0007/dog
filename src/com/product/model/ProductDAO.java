@@ -17,4 +17,7 @@ public interface ProductDAO {
 	public void productDelete(Long productId);
 	//수정
 	public void productUpdate(Product product);
+	
+	// admin_ product 개수 그래프
+	public ProductAdminCount productAdminCount();
 }

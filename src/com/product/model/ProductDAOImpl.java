@@ -64,7 +64,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 		try {
 			con = getConnection();
-			String sql = "select * from product";
+			String sql = "select * from product where status = 'on' order by createddate desc";
 			st = con.createStatement();
 			rs = st.executeQuery(sql);
 			while (rs.next()) {
@@ -75,10 +75,10 @@ public class ProductDAOImpl implements ProductDAO {
 				product.setId(rs.getInt("id"));
 				product.setStatus(rs.getString("status"));
 				product.setAge(rs.getInt("age"));
-				
-				if (rs.getString("filename")==null) {
+				product.setCreatedDate(rs.getString("createddate"));
+				if (rs.getString("filename") == null) {
 					product.setFilename("±âº».png");
-				}else {
+				} else {
 					product.setFilename(rs.getString("filename"));
 				}
 				product.setGender(rs.getString("gender"));
@@ -86,9 +86,9 @@ public class ProductDAOImpl implements ProductDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
-				closeConnection(con, null, st, rs);
-			}
+		} finally {
+			closeConnection(con, null, st, rs);
+		}
 		return parr;
 	}
 
@@ -114,14 +114,17 @@ public class ProductDAOImpl implements ProductDAO {
 				product.setAge(rs.getInt("age"));
 				product.setFilename(rs.getString("filename"));
 				product.setGender(rs.getString("gender"));
+				product.setUserid(rs.getString("userid"));
+				product.setCreatedDate(rs.getString("createddate"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			closeConnection(con, null, st, rs);
 		}
 		return product;
 	}
+
 	@Override
 	public ArrayList<Product> myProductFindAll(Long userId) {
 		Connection con = null;
@@ -143,12 +146,13 @@ public class ProductDAOImpl implements ProductDAO {
 				product.setAge(rs.getInt("age"));
 				product.setFilename(rs.getString("filename"));
 				product.setGender(rs.getString("gender"));
+				product.setCreatedDate(rs.getString("createddate"));
 				productList.add(product);
 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			closeConnection(con, null, st, rs);
 		}
 		return productList;
@@ -171,23 +175,63 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Override
 	public void saleCompleted(Long productId) {
-		// TODO Auto-generated method stub
-		
+		Connection con = null;
+		PreparedStatement ps = null;
+		int flag = 0;
+		try {
+			con = getConnection();
+			String sql = "update product set status = 'off' where id =" + productId;
+			System.out.println(sql);
+			ps = con.prepareStatement(sql);
+			flag = ps.executeUpdate();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		} finally {
+			closeConnection(con, ps, null, null);
+		}
+
 	}
 
 	@Override
 	public void productDelete(Long productId) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void productUpdate(Product product) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
+	@Override
+	public ProductAdminCount productAdminCount() {
+		Connection con = null;
+		Statement st = null;
+		ResultSet rs = null;
 
+		ProductAdminCount productAdminCount = new ProductAdminCount();
+		ArrayList<String> cdates = new ArrayList<String>();
+		ArrayList<Integer> counts = new ArrayList<>();
+		try {
+			con = getConnection();
+			String sql = "select cdate, count(*) as count from (select SUBSTR(product.createddate,1,8) as cdate from product) group by cdate order by cdate";
+			st = con.createStatement();
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				cdates.add("'" + rs.getString("cdate") + "'");
+				counts.add(rs.getInt("count"));
+			}
+			productAdminCount.setCdate(cdates);
+			productAdminCount.setCount(counts);
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConnection(con, null, st, rs);
+		}
+		return productAdminCount;
+	}
 
 }

@@ -48,7 +48,7 @@ $("#loginBtn").click(function(){
 				$(location).attr("href","../index.jsp");
 			}else if(resp.trim()==1){
 				alert("관리자")
-				location.href="memberlist"
+				location.href="../admin/dashboard"
 			}else if(resp.trim()==-1){
 				alert("회원이 아닙니다. 회원가입하세요");
 			}else if(resp.trim()==2){

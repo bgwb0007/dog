@@ -1,6 +1,9 @@
 package com.member.action;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -50,6 +53,13 @@ public class JoinController extends HttpServlet {
 		//member.setPwd(request.getParameter("pwd"));
 		member.setPwd(encPwd); //암호화된 비번
 		member.setUserid(userid);
+		
+		//생성일 저장
+		SimpleDateFormat format1 = new SimpleDateFormat ( "YY-MM-dd HH:mm:ss");
+		Date now = new Date();
+		String format_time1 = format1.format(now.getTime());
+		member.setCreatedDate(format_time1);
+		
 		
 		MemberDAO dao = MemberDAOImpl.getInstance();
 		dao.memberJoin(member);

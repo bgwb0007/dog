@@ -20,7 +20,6 @@
 	<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
 		<h5 class ="my-0 mr-md-auto font-weight-normal"><a href="/dog/product/plist" class="text-dark">HOME</a></h5>
 		<nav class="my-2 my-md-0 mr-md-3">
-			<a class="p-2 text-dark" href="/dog/board/boardlist">게시판</a> 
 			<a class="p-2 text-dark" href="/dog/product/plist">분양하기</a>
 			<c:choose>
 				<c:when test="${empty sessionScope.user}">
@@ -35,7 +34,7 @@
 				</c:otherwise>
 			</c:choose>
 			<c:if test="${sessionScope.user.admin==1 }">
-				<a class="p-2 text-dark" href="/dog/member/memberlist">회원목록</a>
+				<a class="p-2 text-dark" href="/dog/admin/dashboard">관리페이지</a>
 				<span class="navbar-text">(<a class="p-2 text-dark" href="/dog/member/view">${sessionScope.user.name}(관리자)</a> 님
 					반갑습니다.)</span>
 			</c:if>

@@ -59,12 +59,14 @@
 		
 		<div class="form-group row">
 			<label class="col-sm-2">상세설명</label>
-			<div class="col-sm-5">
-				<textarea id="description" name="description" cols="30" rows="15"
+			<div class="col-sm-7">
+				<textarea id="description" name="description" cols="30" rows="20"
 					class="form-control">
-* 강아지와 관련된 특이사항 / 입양관련 정보*<br>
+* 강아지와 관련된 특이사항 / 입양관련 정보*
 출생 특이사항 : 
-예방접종 유무 : </textarea>
+예방접종 유무 : 
+지역 : 
+가격 : </textarea>
 			</div>
 		</div>
 		
