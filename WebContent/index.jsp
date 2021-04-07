@@ -2,5 +2,5 @@
     pageEncoding="UTF-8"%>
 
 <script>
-location.href="/dog/product/plist";
+location.href="/dog/index/main";
 </script>

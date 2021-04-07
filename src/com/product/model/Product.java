@@ -3,9 +3,9 @@ package com.product.model;
 import java.time.LocalDateTime;
 
 public class Product {
-	private long id;  //강아지 id
+	private Integer id;  //강아지 id
 	private String name;  //강아지 이름
-	private long age;  //나이 (개월수)
+	private Integer age;  //나이 (개월수)
 	private String description; //상품 설명
 	private String category ; //분류 (강아지종)
 	private String gender;    // 성별
@@ -25,7 +25,7 @@ public class Product {
 	public long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -37,7 +37,7 @@ public class Product {
 	public long getAge() {
 		return age;
 	}
-	public void setAge(long age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 	public String getDescription() {

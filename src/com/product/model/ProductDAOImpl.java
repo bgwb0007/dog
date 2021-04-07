@@ -56,7 +56,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public ArrayList<Product> productAllfind() {
+	public ArrayList<Product> productOnAllfind() {
 		Connection con = null;
 		Statement st = null;
 		ResultSet rs = null;
@@ -93,7 +93,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public Product findById(Long productId) {
+	public Product findById(int productId) {
 		Connection con = null;
 		Statement st = null;
 		ResultSet rs = null;
@@ -112,7 +112,11 @@ public class ProductDAOImpl implements ProductDAO {
 				product.setId(rs.getInt("id"));
 				product.setStatus(rs.getString("status"));
 				product.setAge(rs.getInt("age"));
-				product.setFilename(rs.getString("filename"));
+				if (rs.getString("filename") == null) {
+					product.setFilename("기본.png");
+				} else {
+					product.setFilename(rs.getString("filename"));
+				}
 				product.setGender(rs.getString("gender"));
 				product.setUserid(rs.getString("userid"));
 				product.setCreatedDate(rs.getString("createddate"));
@@ -201,8 +205,27 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Override
 	public void productUpdate(Product product) {
-		// TODO Auto-generated method stub
+		Connection con = null;
+	    PreparedStatement ps = null;
 
+	    try {
+			con =getConnection();
+			String sql="update product set name=?, age =?, description=?, category=?, gender=? where id =?";
+			System.out.println(sql);
+			ps=con.prepareStatement(sql);
+			ps.setString(1, product.getName());
+			ps.setLong(2, product.getAge());
+			ps.setString(3, product.getDescription());
+			ps.setString(4, product.getCategory());
+			ps.setString(5, product.getGender());
+			ps.setLong(6, product.getId());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}finally {
+			closeConnection(con, ps, null,null);
+		}
 	}
 
 	@Override
@@ -233,5 +256,118 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 		return productAdminCount;
 	}
+
+	@Override
+	public ArrayList<Product> productFindTop3() {
+		Connection con = null;
+		Statement st = null;
+		ResultSet rs = null;
+		ArrayList<Product> parr = new ArrayList<>();
+
+		try {
+			con = getConnection();
+			String sql = "select * from (select * from product where status = 'on' order by createddate desc) where rownum<=3";
+			st = con.createStatement();
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				Product product = new Product();
+				product.setCategory(rs.getString("category"));
+				product.setDescription(rs.getString("description"));
+				product.setName(rs.getString("name"));
+				product.setId(rs.getInt("id"));
+				product.setStatus(rs.getString("status"));
+				product.setAge(rs.getInt("age"));
+				product.setCreatedDate(rs.getString("createddate"));
+				if (rs.getString("filename") == null) {
+					product.setFilename("기본.png");
+				} else {
+					product.setFilename(rs.getString("filename"));
+				}
+				product.setGender(rs.getString("gender"));
+				parr.add(product);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConnection(con, null, st, rs);
+		}
+		return parr;
+	}
+
+	@Override
+	public ArrayList<Product> productFindAll() {
+		Connection con = null;
+		Statement st = null;
+		ResultSet rs = null;
+		ArrayList<Product> parr = new ArrayList<>();
+
+		try {
+			con = getConnection();
+			String sql = "select * from product order by createddate desc";
+			st = con.createStatement();
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				Product product = new Product();
+				product.setCategory(rs.getString("category"));
+				product.setDescription(rs.getString("description"));
+				product.setName(rs.getString("name"));
+				product.setId(rs.getInt("id"));
+				product.setStatus(rs.getString("status"));
+				product.setAge(rs.getInt("age"));
+				product.setCreatedDate(rs.getString("createddate"));
+				if (rs.getString("filename") == null) {
+					product.setFilename("기본.png");
+				} else {
+					product.setFilename(rs.getString("filename"));
+				}
+				product.setGender(rs.getString("gender"));
+				parr.add(product);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConnection(con, null, st, rs);
+		}
+		return parr;
+	}
+
+	@Override
+	public ArrayList<Product> productSearch(String keyword) {
+		Connection con = null;
+		Statement st = null;
+		ResultSet rs = null;
+		ArrayList<Product> parr = new ArrayList<>();
+
+		try {
+			con = getConnection();
+			String sql = "select * from product where name like '%"+keyword+"%' or category like '%"+keyword+"%' or description like '%"+keyword+"%' order by createddate desc";
+			st = con.createStatement();
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				Product product = new Product();
+				product.setCategory(rs.getString("category"));
+				product.setDescription(rs.getString("description"));
+				product.setName(rs.getString("name"));
+				product.setId(rs.getInt("id"));
+				product.setStatus(rs.getString("status"));
+				product.setAge(rs.getInt("age"));
+				product.setCreatedDate(rs.getString("createddate"));
+				if (rs.getString("filename") == null) {
+					product.setFilename("기본.png");
+				} else {
+					product.setFilename(rs.getString("filename"));
+				}
+				product.setGender(rs.getString("gender"));
+				parr.add(product);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConnection(con, null, st, rs);
+		}
+		return parr;
+	}
+
+	
 
 }

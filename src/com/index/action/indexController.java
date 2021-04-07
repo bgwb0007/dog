@@ -1,29 +1,29 @@
-package com.product.action;
+package com.index.action;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.member.model.Member;
 import com.product.model.Product;
 import com.product.model.ProductDAO;
 import com.product.model.ProductDAOImpl;
 
 /**
- * Servlet implementation class ProductDetailController
+ * Servlet implementation class indexController
  */
-@WebServlet("/product/pdetail")
-public class ProductDetailController extends HttpServlet {
+@WebServlet("/index/main")
+public class indexController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ProductDetailController() {
+	public indexController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -34,23 +34,15 @@ public class ProductDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		if (session.getAttribute("user") == null) {
-			response.sendRedirect("../member/login.jsp");
-		}
-		else {
-			request.setCharacterEncoding("utf-8");
-			int productId = Integer.parseInt(request.getParameter("productId"));
-			ProductDAO pdao = ProductDAOImpl.getInstance();
-			Product product = pdao.findById(productId);
-			request.setAttribute("product", product);
-			
-			session.setAttribute("productId", productId);
+		ProductDAO pdao = ProductDAOImpl.getInstance();
+		ArrayList<Product> products = pdao.productFindTop3();
 
-			request.getRequestDispatcher("productDetail.jsp").forward(request, response);
-		}
-		
+		request.setAttribute("products", products);
+
+		request.getRequestDispatcher("main.jsp").forward(request, response);
+
 	}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

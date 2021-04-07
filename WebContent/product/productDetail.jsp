@@ -37,7 +37,7 @@
 			<tr>
 				<td colspan="2"><c:if
 						test="${sessionScope.user.userid==product.userid }">
-						<a href="#" class="btn btn-secondary my-2">수정</a>
+						<a href="/dog/product/pupdate" class="btn btn-secondary my-2">수정</a>
 						<a href="#" class="btn btn-secondary my-2">삭제</a>
 						<a href="/dog/product/salecompleted?productId=${product.id }" class="btn btn-secondary my-2">분양 완료</a>
 					</c:if> <c:if test="${sessionScope.user.userid!=product.userid }">

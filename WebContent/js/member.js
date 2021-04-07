@@ -72,10 +72,6 @@ $(document).ready(function(){
 	  });//ajax
    }) //idBtn
   
-  
-  
-  
-  
 }) //document
 
 function del(userid){

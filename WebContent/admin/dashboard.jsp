@@ -25,7 +25,6 @@
 		</nav>
 		<div style="width: 70%;">
 			<canvas id="productChart"></canvas>
-			${cdates}
 		</div>
 	</div>
 </div>
