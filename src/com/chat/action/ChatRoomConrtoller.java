@@ -1,4 +1,4 @@
-package com.board.action;
+package com.chat.action;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,21 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.board.model.Board;
-import com.board.model.BoardDAO;
-import com.board.model.BoardDAOImpl;
-
 /**
- * Servlet implementation class BoardWriteController
+ * Servlet implementation class ChatRoomConrtoller
  */
-@WebServlet("/board/write")
-public class BoardWriteController extends HttpServlet {
+@WebServlet("/chat/room")
+public class ChatRoomConrtoller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardWriteController() {
+    public ChatRoomConrtoller() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,22 +26,16 @@ public class BoardWriteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("boardWrite.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	 request.setCharacterEncoding("utf-8");
-	 Board board =new Board();
-	 board.setContent(request.getParameter("content"));
-	 board.setEmail(request.getParameter("email"));
-	 board.setSubject(request.getParameter("subject"));
-	 board.setUserid(request.getParameter("userid")); 
-	 BoardDAO sdao = BoardDAOImpl.getInstance();
-	 sdao.boardInsert(board);
-	 response.sendRedirect("boardlist");
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

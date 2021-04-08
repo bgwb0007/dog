@@ -1,28 +1,34 @@
-package com.board.action;
+package com.chat.action;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.board.model.BoardDAO;
-import com.board.model.BoardDAOImpl;
+import com.chat.model.Chat;
+import com.chat.model.ChatDAO;
+import com.chat.model.ChatDAOImpl;
+import com.member.model.Member;
+import com.product.model.Product;
+import com.product.model.ProductDAO;
+import com.product.model.ProductDAOImpl;
 
 /**
- * Servlet implementation class BoardDeleteController
+ * Servlet implementation class ChatListController
  */
-@WebServlet("/board/delete")
-public class BoardDeleteController extends HttpServlet {
+@WebServlet("/chat/list")
+public class ChatListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardDeleteController() {
+    public ChatListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,23 +38,16 @@ public class BoardDeleteController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		int num = Integer.parseInt(request.getParameter("num"));
-		BoardDAO sdao = BoardDAOImpl.getInstance();
-		int flag=sdao.boardDelete(num);
-//		if(flag==0) {// 삭제오류(삭제 안됨)
-//			response.setContentType("text/html;charset=utf-8");
-//			PrintWriter out =response.getWriter();
-//			out.println("<script>");
-//			out.println("alert('삭제할 수 없습니다.')");
-//			out.println("history.back()");
-//			out.println("</script>");
-//			
-//		}else {
-//			response.sendRedirect("boardlist");
-//		}
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out =response.getWriter();
-		out.println(flag);
+		HttpSession session = request.getSession();
+		
+		Member member = (Member) session.getAttribute("user");
+		ChatDAO dao = ChatDAOImpl.getInstance();
+		
+		ArrayList<Chat> chats = dao.myChatFindAll(member.getUserid());
+		
+		request.setAttribute("chats", chats);	
+		request.setAttribute("user", member);
+		request.getRequestDispatcher("chatList.jsp").forward(request, response);
 	}
 
 	/**

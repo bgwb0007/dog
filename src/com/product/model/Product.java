@@ -22,7 +22,7 @@ public class Product {
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
@@ -34,7 +34,7 @@ public class Product {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public long getAge() {
+	public int getAge() {
 		return age;
 	}
 	public void setAge(int age) {

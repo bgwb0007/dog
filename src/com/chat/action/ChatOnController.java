@@ -1,6 +1,8 @@
-package com.product.action;
+package com.chat.action;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,22 +10,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.chat.model.Chat;
+import com.chat.model.ChatDAO;
+import com.chat.model.ChatDAOImpl;
+import com.chat.model.Message;
 import com.member.model.Member;
 import com.product.model.Product;
 import com.product.model.ProductDAO;
 import com.product.model.ProductDAOImpl;
 
 /**
- * Servlet implementation class ProductDetailController
+ * Servlet implementation class ChatOnController
  */
-@WebServlet("/product/pdetail")
-public class ProductDetailController extends HttpServlet {
+@WebServlet("/chat/on")
+public class ChatOnController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ProductDetailController() {
+	public ChatOnController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -34,25 +40,24 @@ public class ProductDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
-		if (session.getAttribute("user") == null) {
-			response.sendRedirect("../member/login.jsp");
-		} else {
-			request.setCharacterEncoding("utf-8");
-			int productId = Integer.parseInt(request.getParameter("productId"));
-			ProductDAO pdao = ProductDAOImpl.getInstance();
-			Product product = pdao.findById(productId);
-			request.setAttribute("product", product);
 
-			// 수정용 id
-			session.setAttribute("productId", productId);
+		int chatid = Integer.parseInt(request.getParameter("chatid"));
+		Member user = (Member) session.getAttribute("user");
 
-			// 채팅생성용 product객체
-			session.setAttribute("product", product);
+		// 채팅방 정보 찾기
+		ChatDAO dao = ChatDAOImpl.getInstance();
+		Chat chat = dao.findById(chatid);
 
-			request.getRequestDispatcher("productDetail.jsp").forward(request, response);
-		}
+		// 이전메시지 가져오기
+		ArrayList<Message> messages = dao.messageFindAll(chat.getId());
 
+		request.setAttribute("me", user);
+		request.setAttribute("chat", chat);
+		request.setAttribute("messages", messages);
+
+		request.getRequestDispatcher("chatRoom.jsp").forward(request, response);
 	}
 
 	/**

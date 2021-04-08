@@ -30,6 +30,7 @@
 				<c:otherwise>
 					<!--   세션이 있을 때  -->
 					<a class="p-2 text-dark" href="/dog/product/pinsert">분양등록</a>
+					<a class="p-2 text-dark" href="/dog/chat/list">채팅목록</a>
 					<a class="p-2 text-dark" href="/dog/member/logout">로그아웃</a>
 				</c:otherwise>
 			</c:choose>
