@@ -14,7 +14,15 @@ public interface ChatDAO {
 	public ArrayList<Chat> myChatFindAll(String userId);
 	//채팅방 찾기
 	public Chat findById(int chatid);
-
+	
+	//관리페이지 _ 전체 채팅방 개수
+	public int countAllChat();
+	//관리페이지 _ 오늘 채팅방 개수
+	public int countTodayChat();
+	//관리페이지 _ 전체 채팅 개수
+	public int countAllMessage();
+	//관리페이지 _ 오늘 채팅 개수
+	public int countTodayMessage();
 	
 	//메시지 저장하기
 	public void messageInsert(Message message);

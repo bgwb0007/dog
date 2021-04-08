@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.websocket.OnClose;
@@ -119,6 +121,16 @@ public class Websocket {
 	public void handleClose(Session userSession) {
 // session 리스트로 접속 끊은 세션을 제거한다.
 		sessionUsers.remove(userSession);
+		for(int key : room_map.keySet()){
+			List<Session> templist = Collections.synchronizedList(new ArrayList<>());
+			templist = room_map.get(key);
+			if (templist.contains(userSession)) {
+				templist.remove(userSession);
+				room_map.put(key, templist);
+			}
+            System.out.println(key+" : "+templist);
+ 
+        }
 // 콘솔에 접속 끊김 로그를 출력한다.
 		System.out.println("client is now disconnected...");
 	}

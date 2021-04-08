@@ -11,8 +11,8 @@
 			<div class="sidebar-sticky pt-3">
 				<ul class="nav flex-column">
 					<li class="nav-item"><a class="nav-link active"
-						href="/dog/admin/memberlist">"회원관리"</a></li>
-					<li class="nav-item"><a class="nav-link active" href="#">"Dashboard2"</a>
+						href="/dog/admin/memberlist">회원관리</a></li>
+					<li class="nav-item"><a class="nav-link active" href="/dog/admin/summary">채팅통계</a>
 					</li>
 					<li class="nav-item"><a class="nav-link active" href="#">"Dashboard3"</a>
 					</li>

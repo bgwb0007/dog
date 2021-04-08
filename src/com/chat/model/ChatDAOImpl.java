@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -185,7 +187,7 @@ public class ChatDAOImpl implements ChatDAO{
 
 		try {
 			con = getConnection();
-			String sql = "select * from message where chatid = "+chatid+" order by createddate desc";
+			String sql = "select * from message where chatid = "+chatid+" order by createddate asc";
 			st = con.createStatement();
 			rs = st.executeQuery(sql);
 			while (rs.next()) {
@@ -204,5 +206,99 @@ public class ChatDAOImpl implements ChatDAO{
 		}
 		return parr;
 	}
+	@Override
+	public int countAllChat() {
+		Connection con = null;
+		Statement st = null;
+		ResultSet rs = null;
+		int count=0;
+		try {
+			con = getConnection();
+			String sql = "select count(*) from chat";
+			st = con.createStatement();
+			rs = st.executeQuery(sql);
+			if (rs.next()) {
+				count = rs.getInt("count(*)");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConnection(con, null, st, rs);
+		}
+		return count;
+	}
+	@Override
+	public int countTodayChat() {
+		SimpleDateFormat format1 = new SimpleDateFormat("YY-MM-dd");
+		Date now = new Date();
+		String format_time1 = format1.format(now.getTime());
+		
+		Connection con = null;
+		Statement st = null;
+		ResultSet rs = null;
+		int count=0;
+		try {
+			con = getConnection();
+			String sql = "select count(*) from chat where createddate like '"+format_time1+"%'";
+			st = con.createStatement();
+			rs = st.executeQuery(sql);
+			if (rs.next()) {
+				count = rs.getInt("count(*)");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConnection(con, null, st, rs);
+		}
+		return count;
+	}
+	@Override
+	public int countAllMessage() {
+		Connection con = null;
+		Statement st = null;
+		ResultSet rs = null;
+		int count=0;
+		try {
+			con = getConnection();
+			String sql = "select count(*) from message";
+			st = con.createStatement();
+			rs = st.executeQuery(sql);
+			if (rs.next()) {
+				count = rs.getInt("count(*)");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConnection(con, null, st, rs);
+		}
+		return count;
+	}
+	@Override
+	public int countTodayMessage() {
+		SimpleDateFormat format1 = new SimpleDateFormat("YY-MM-dd");
+		Date now = new Date();
+		String format_time1 = format1.format(now.getTime());
+		
+		Connection con = null;
+		Statement st = null;
+		ResultSet rs = null;
+		int count=0;
+		try {
+			con = getConnection();
+			String sql = "select count(*) from message where createddate like '"+format_time1+"%'";
+			st = con.createStatement();
+			rs = st.executeQuery(sql);
+			if (rs.next()) {
+				count = rs.getInt("count(*)");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConnection(con, null, st, rs);
+		}
+		return count;
+	}
+	
+	
 
 }
