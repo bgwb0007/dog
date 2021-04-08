@@ -5,11 +5,11 @@
 <main role="main">
 	<section class="jumbotron text-center">
 		<div class="container">
-			<h1>Album example</h1>
-			<p class="lead text-muted">text text 강아지 입양!</p>
+			<h1>분양 게시글</h1>
+			<p class="lead text-muted">반려견 입양으로 새로운 가족을 만들어보세요</p>
 			<p>
 				<a href="/dog/product/pinsert" class="btn btn-primary my-2">분양
-					등록하기</a> <a href="#" class="btn btn-secondary my-2">내 등록글 확인하기</a>
+					등록하기</a>
 			</p>
 		</div>
 	</section>
