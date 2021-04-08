@@ -22,13 +22,6 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<th scope="row">1</th>
-						<td>Mark</td>
-						<td>Otto</td>
-						<td>20-11-12</td>
-						<td><a class="btn btn-primary">입장하기</a></td>
-					</tr>
 					<c:forEach items="${chats }" var="chat">
 						<tr>
 							<th scope="row">1</th>
@@ -43,7 +36,7 @@
 								</c:choose></td>
 							<td>${chat.productname }(${chat.productcategory })</td>
 							<td>${chat.createddate }</td>
-							<td><a href="/dog/chat/on?chatid=${chat.id }" class="btn btn-primary">입장하기${chat.id }</a></td>
+							<td><a href="/dog/chat/on?chatid=${chat.id }" class="btn btn-primary">입장하기</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

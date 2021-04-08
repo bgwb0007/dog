@@ -45,7 +45,7 @@ public class ChatOnController extends HttpServlet {
 
 		int chatid = Integer.parseInt(request.getParameter("chatid"));
 		Member user = (Member) session.getAttribute("user");
-
+		String temp = "'"+user.getUserid()+"'";
 		// 채팅방 정보 찾기
 		ChatDAO dao = ChatDAOImpl.getInstance();
 		Chat chat = dao.findById(chatid);
@@ -53,7 +53,7 @@ public class ChatOnController extends HttpServlet {
 		// 이전메시지 가져오기
 		ArrayList<Message> messages = dao.messageFindAll(chat.getId());
 
-		request.setAttribute("me", user);
+		request.setAttribute("me", temp);
 		request.setAttribute("chat", chat);
 		request.setAttribute("messages", messages);
 
