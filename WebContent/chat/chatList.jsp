@@ -24,7 +24,7 @@
 				<tbody>
 					<c:forEach items="${chats }" var="chat">
 						<tr>
-							<th scope="row">1</th>
+							<th scope="row">-</th>
 							<td>
 								<c:choose>
 									<c:when test="${chat.buyerid == sessionScope.user.userid}">

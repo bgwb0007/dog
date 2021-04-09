@@ -40,9 +40,9 @@
 				</div>
 				<div class="card" style="width: 100%; margin-top: 3rem;">
 					<div class="card-body">
-						<h5 class="card-title">전국 종합 유기견 분양센터</h5>
-						<p class="card-text">구원의 손길을 기다리는 아이들이 있습니다</p>
-						<a href="https://www.zooseyo.or.kr/zooseyo_or_kr.html?"
+						<h5 class="card-title">동물 보호 관리시스템</h5>
+						<p class="card-text">동물등록제(반려견 등록)<br>여러분의 반려동물 사랑으로 지켜주세요</p>
+						<a href="https://www.animal.go.kr/front/index.do"
 							class="btn btn-primary">Go web</a>
 					</div>
 				</div>
